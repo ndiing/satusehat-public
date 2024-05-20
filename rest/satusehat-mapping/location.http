@@ -1,0 +1,18 @@
+@Org_id=
+
+### Location - Create
+POST http://localhost:3000/api/satusehat/v1/Location
+Content-type: application/json
+
+{
+    "identifier.0.value": "GT1-R-IGD-PONEK",
+    "status": "active",
+    "name": "Instalasi Gawat Darurat - PONEK",
+    "description": "Ruang Tindakan Kegawatdaruratan, Lantai 1, Gedung Timur",
+    "mode": "instance",
+    "physicalType.coding.0.code": "ro",
+    "position.longitude": -6.23115426275766,
+    "position.latitude": 106.83239885393944,
+    "position.altitude": 0,
+    "Org_id": "5a90444d-01bd-405c-957b-6648a533132d"
+}

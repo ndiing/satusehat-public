@@ -1,0 +1,20 @@
+@Org_id=
+@Encounter_uuid=
+
+### Encounter - Create
+POST http://localhost:3000/api/satusehat/v1/Encounter
+Content-type: application/json
+
+{
+    "status": "arrived",
+    "class.code": "AMB",
+    "Patient_nik": "3501041605910002",
+    "participant.0.type.0.coding.0.code": "ATND",
+    "Practitioner_nik": "3515146112900002",
+    "period.start": "2022-06-14T07:00:00+07:00",
+    "Location_id": "GT1-R-IGD-PONEK",
+    "statusHistory.0.status": "arrived",
+    "statusHistory.0.period.start": "2022-06-14T07:00:00+07:00",
+    "Org_id": "5a90444d-01bd-405c-957b-6648a533132d",
+    "identifier.0.value": "P20240001"
+}
