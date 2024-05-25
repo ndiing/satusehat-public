@@ -1,11 +1,71 @@
-### Mendapatkan Jenis Organisasi (CodeSystem: Organization type)
-GET http://localhost:3000/api/hl7/CodeSystem-organization-type
+### name:AllergyIntoleranceClinicalStatusCodes
+GET http://localhost:3000/api/hl7/CodeSystem-allergyintolerance-clinical
 
-### Mendapatkan Jenis Lokasi Fisik (CodeSystem: Location type)
+### name:AllergyIntoleranceVerificationStatus
+GET http://localhost:3000/api/hl7/CodeSystem-allergyintolerance-verification
+
+### name:ConditionCategoryCodes
+GET http://localhost:3000/api/hl7/CodeSystem-condition-category
+
+### name:ConditionClinicalStatusCodes
+GET http://localhost:3000/api/hl7/CodeSystem-condition-clinical
+
+### name:DiagnosisRole
+GET http://localhost:3000/api/hl7/CodeSystem-diagnosis-role
+
+### name:DischargeDisposition
+GET http://localhost:3000/api/hl7/CodeSystem-discharge-disposition
+
+### name:DoseAndRateType
+GET http://localhost:3000/api/hl7/CodeSystem-dose-rate-type
+
+### name:LocationType
 GET http://localhost:3000/api/hl7/CodeSystem-location-physical-type
 
-### Mendapatkan Kode Aktivitas (CodeSystem: ActCode)
+### name:MedicationRequestCategoryCodes
+GET http://localhost:3000/api/hl7/CodeSystem-medicationrequest-category
+
+### name:MedicationRequestCourseOfTherapyCodes
+GET http://localhost:3000/api/hl7/CodeSystem-medicationrequest-course-of-therapy
+
+### name:ObservationCategoryCodes
+GET http://localhost:3000/api/hl7/CodeSystem-observation-category
+
+### name:OrganizationType
+GET http://localhost:3000/api/hl7/CodeSystem-organization-type
+
+### name:PractitionerRole
+GET http://localhost:3000/api/hl7/CodeSystem-practitioner-role
+
+### name:ServiceType
+GET http://localhost:3000/api/hl7/CodeSystem-service-type
+
+### name:DiagnosticServiceSectionId
+GET http://localhost:3000/api/hl7/CodeSystem-v2-0074
+
+### name:ContactRole2
+GET http://localhost:3000/api/hl7/CodeSystem-v2-0131
+
+### name:IdentifierType
+GET http://localhost:3000/api/hl7/CodeSystem-v2-0203
+
+### name:AppointmentReason
+GET http://localhost:3000/api/hl7/CodeSystem-v2-0276
+
+### name:ProviderRole
+GET http://localhost:3000/api/hl7/CodeSystem-v2-0443
+
+### name:ActCode
 GET http://localhost:3000/api/hl7/CodeSystem-v3-ActCode
 
-### Mendapatkan Jenis Partisipasi (CodeSystem: ParticipationType)
+### name:MaritalStatus
+GET http://localhost:3000/api/hl7/CodeSystem-v3-MaritalStatus
+
+### name:ParticipationType
 GET http://localhost:3000/api/hl7/CodeSystem-v3-ParticipationType
+
+### name:RoleCode
+GET http://localhost:3000/api/hl7/CodeSystem-v3-RoleCode
+
+### name:OrderableDrugForm
+GET http://localhost:3000/api/hl7/CodeSystem-v3-orderableDrugForm
