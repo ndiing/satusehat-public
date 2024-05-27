@@ -1,148 +1,244 @@
-# SatuSehat Private
+# SatuSehat Integration with FHIR
 
-Welcome to the **SatuSehat Private** repository! This project is built using Node.js and provides several REST API examples to manage sessions in different ways.
+![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
+![License](https://img.shields.io/badge/license-MIT-blue)
+
+This repository demonstrates the integration of FHIR with SatuSehat, developed by Abiyosoft. This project aims to facilitate the seamless integration and interaction between healthcare applications and the SatuSehat platform using the FHIR standard.
 
 ## Table of Contents
 
-- [Introduction](#introduction)
-- [Developer Information](#developer-information)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Setting Up .env](#setting-up-env)
-  - [satusehat-mapping](#satusehat-mapping)
-  - [satusehat-private](#satusehat-private)
-- [REST Examples](#rest-examples)
-  - [satusehat-mapping](#satusehat-mapping)
-  - [satusehat-private](#satusehat-private)
-  - [satusehat-public](#satusehat-public)
-  - [hl7](#hl7)
-  - [master-address](#master-address)
-  - [master-telecom](#master-telecom)
-- [Contributing](#contributing)
-- [License](#license)
+- [Repositories](#repositories)
 - [Contact](#contact)
+- [Downloads](#downloads)
+  - [Windows](#windows)
+  - [Linux and macOS](#linux-and-macos)
+- [Node.js Setup](#nodejs-setup)
+  - [Download and Install Node.js](#download-and-install-nodejs)
+  - [Clone the Project](#clone-the-project)
+  - [Install Project Dependencies](#install-project-dependencies)
+  - [Run the Project](#run-the-project)
+- [Example Requests](#example-requests)
+  - [Manual Session (satusehat-public)](#manual-session-satusehat-public)
+    - [Organization - Create](#organization---create)
+  - [Automated Session (satusehat-private)](#automated-session-satusehat-private)
+    - [Configure .env](#configure-env)
+    - [Organization - Create](#organization---create)
+  - [SatuSehat-Mapping](#satusehat-mapping)
+    - [Organization - Create (Simplified Payload)](#organization---create-simplified-payload)
+- [REST Examples](#rest-examples)
+  - [HL7](#hl7)
+  - [Master](#master)
+    - [Address](#address)
+    - [Telecomm](#telecomm)
+  - [SatuSehat](#satusehat)
+    - [Public](#public)
+    - [Private](#private)
+    - [Mapping](#mapping)
+- [License](#license)
 
-## Introduction
+## Repositories
 
-This repository contains Node.js based examples to demonstrate how to manage sessions for the SatuSehat application. Each example shows a different approach to handle session management with simplified payloads and environment settings.
+- **Public Repository:** [satusehat-public](https://github.com/ndiing/satusehat-public)
+- **Private Repository:** [satusehat-private](https://github.com/ndiing/satusehat-private)
 
-## Developer Information
+## Contact
 
-This project is developed by **Abiyosoft**, integrating FHIR with SatuSehat. For more information about SatuSehat, visit [SatuSehat](https://satusehat.kemkes.go.id/).
+- **GitHub Username:** ndiing
+- **Email:** ndiing.inc@gmail.com
 
-## Installation
+## Downloads
 
-To get started, clone the repository and install the dependencies:
+### Windows
+
+[Download](https://github.com/ndiing/satusehat-public/releases)
+
+### Linux and macOS
+
+We cannot build for Linux and macOS due to the lack of available devices. Please use a Node.js environment to run the application.
+
+## Node.js Setup
+
+### Download and Install Node.js
+
+[Download](https://nodejs.org/dist/v20.13.1/node-v20.13.1-x64.msi) and install Node.js on your computer.
+
+### Clone the Project
 
 <pre>
 git clone https://github.com/ndiing/satusehat-private.git
+</pre>
+
+### Install Project Dependencies
+
+<pre>
 cd satusehat-private
 npm install
 </pre>
 
-## Usage
-
-You can run each example separately to see how session management is handled in different scenarios. Below are the steps to run each example.
-
-### Setting Up .env
-
-Create a `.env` file in the root directory of `satusehat-mapping` or `satusehat-private` with the following content:
+### Run the Project
 
 <pre>
-# Konfigurasi untuk Port Layanan Web
+npm run dev
+# or
+npm run start
+</pre>
+
+## Example Requests
+
+### Manual Session (satusehat-public)
+
+#### Organization - Create
+
+<pre>
+POST http://localhost:3000/api/satusehat/Organization
+Authorization: Bearer {{token}}
+Content-type: application/json
+
+{
+    "resourceType": "Organization",
+    "active": true,
+    "identifier": [
+        {
+            "use": "official",
+            "system": "http://sys-ids.kemkes.go.id/organization/1000079374",
+            "value": "Pos Imunisasi LUBUK BATANG"
+        }
+    ],
+    "type": [
+        {
+            "coding": [
+                {
+                    "system": "http://terminology.hl7.org/CodeSystem/organization-type",
+                    "code": "dept",
+                    "display": "Hospital Department"
+                }
+            ]
+        }
+    ],
+    "name": "Pos Imunisasi",
+    "partOf": {
+        "reference": "Organization/{{Org_id}}"
+    }
+}
+</pre>
+
+### Automated Session (satusehat-private)
+
+#### Configure .env
+
+Open the `.env` file and set the following configurations:
+
+<pre>
+# Web Service Port Configuration
 port=3000
 
-# Konfigurasi Server Proxy
-# Jika Anda menggunakan server proxy, aktifkan baris di atas dengan menghapus tanda pagar (#) di awal baris dan sesuaikan dengan alamat dan port server proxy Anda.
-# proxy=http://127.0.0.1:8888
+# Proxy Server Configuration
+proxy=http://127.0.0.1:8888
 
-# Kredensial Satusehat
-# Kredensial yang diperlukan untuk mengautentikasi aplikasi dengan Satusehat.
-# Pastikan kredensial ini tetap rahasia dan aman.
+# SatuSehat Credentials
 client_id=
 client_secret=
 organization_id=
 </pre>
 
-Replace the placeholders with your actual credentials and configuration values.
-
-### Running the Application
-
-For development, you can use `nodemon` to automatically restart the server on file changes:
+#### Organization - Create
 
 <pre>
-npm run dev
+POST http://localhost:3000/api/satusehat/Organization
+Content-type: application/json
+
+{
+    "resourceType": "Organization",
+    "active": true,
+    "identifier": [
+        {
+            "use": "official",
+            "system": "http://sys-ids.kemkes.go.id/organization/1000079374",
+            "value": "Pos Imunisasi LUBUK BATANG"
+        }
+    ],
+    "type": [
+        {
+            "coding": [
+                {
+                    "system": "http://terminology.hl7.org/CodeSystem/organization-type",
+                    "code": "dept",
+                    "display": "Hospital Department"
+                }
+            ]
+        }
+    ],
+    "name": "Pos Imunisasi",
+    "partOf": {
+        "reference": "Organization/{{Org_id}}"
+    }
+}
 </pre>
 
-This will run the command `nodemon src/index.js`.
+### SatuSehat-Mapping
 
-To start the application in a production environment, use:
+#### Organization - Create (Simplified Payload)
 
 <pre>
-npm start
+POST http://localhost:3000/api/satusehat/Organization
+Content-type: application/json
+
+{
+    "resourceType": "Organization",
+    "active": true,
+    "identifier.0.use": "official",
+    "identifier.0.system": "http://sys-ids.kemkes.go.id/organization/1000079374",
+    "identifier.0.value": "Pos Imunisasi LUBUK BATANG",
+    "type.0.coding.0.system": "http://terminology.hl7.org/CodeSystem/organization-type",
+    "type.0.coding.0.code": "dept",
+    "type.0.coding.0.display": "Hospital Department",
+    "name": "Pos Imunisasi",
+    "partOf.reference": "Organization/{{Org_id}}"
+}
 </pre>
-
-This will run the command `node src/index.js`.
-
-### satusehat-mapping
-
-This example demonstrates automatic session management with a simplified payload.
-
-
-### satusehat-private
-
-This example manages sessions automatically using environment settings.
-
-
-### satusehat-public
-
-This example manages each session individually.
-
 
 ## REST Examples
 
-### satusehat-mapping
+### HL7
 
-- **Description**: Demonstrates automatic session management with a simplified payload.
-- **Path**: `./rest/satusehat-mapping`
+<pre>
+./rest/hl7.http
+</pre>
 
-### satusehat-private
+### Master
 
-- **Description**: Manages sessions automatically using environment settings.
-- **Path**: `./rest/satusehat-private`
+#### Address
 
-### satusehat-public
+<pre>
+./rest/master/address.http
+</pre>
 
-- **Description**: Manages each session individually.
-- **Path**: `./rest/satusehat-public`
+#### Telecomm
 
-### hl7
+<pre>
+./rest/master/telecomm.http
+</pre>
 
-- **Description**: Example REST API for HL7 integration.
-- **Path**: `./rest/hl7.http`
+### SatuSehat
 
-### master-address
+#### Public
 
-- **Description**: Example REST API for managing address data.
-- **Path**: `./rest/master/address.http`
+<pre>
+./rest/satusehat-public/*.http
+</pre>
 
-### master-telecom
+#### Private
 
-- **Description**: Example REST API for managing telecom data.
-- **Path**: `./rest/master/telecom.http`
+<pre>
+./rest/satusehat-private/*.http
+</pre>
 
-## Contributing
+#### Mapping
 
-Contributions are welcome! Please fork the repository and create a pull request to contribute.
+<pre>
+./rest/satusehat-mapping/*.http
+</pre>
 
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
-## Contact
-
-For any questions or inquiries, please contact me at [ndiing.inc@gmail.com](mailto:ndiing.inc@gmail.com).
-
----
-
-Happy coding! 😃
